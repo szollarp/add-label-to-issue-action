@@ -5,7 +5,7 @@ async function run() {
   try {
     const token = core.getInput('token');
     const issueNumber = core.getInput('issueNumber');
-    const labels = core.getInput('labels');
+    const label = core.getInput('label');
     
     const {context, getOctokit} = github;
     const octokit = getOctokit(token);
@@ -13,7 +13,7 @@ async function run() {
     await octokit.issues.addLabels({
       ...context.repo,
       issue_number: issueNumber,
-      labels
+      labels: [label]
     });
   }
   catch (error) {

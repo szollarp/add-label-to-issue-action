@@ -7,8 +7,8 @@ inputs:
   issueNumber:
     description: 'Id of issue'
     required: true
-  labels:
-    description: 'New labels'
+  label:
+    description: 'New label'
     required: true
 runs:
   using: 'node12'
