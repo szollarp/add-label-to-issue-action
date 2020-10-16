@@ -1,15 +1,19 @@
-name: 'Add label to gh issue'
-description: 'Add label to gh issue'
+name: Add label(s)
+description: Add label(s) to an issue.
+author: Peter Szollar
 inputs:
   token:
-    description: 'GitHub access token'
+    description: GitHub token.
     required: true
   issueNumber:
-    description: 'Id of issue'
+    description: The number of the issue.
     required: true
-  label:
-    description: 'New label'
+  labels:
+    description: The labels name to be added. Must be separated with ';' if there're multiple labels.
     required: true
 runs:
-  using: 'node12'
-  main: 'dist/index.js'
+  using: node12
+  main: dist/index.js
+branding:
+  icon: tag  
+  color: orange

@@ -1,11 +1,11 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
 
-async function run() {
+async function run(): Promise<void> {
   try {
-    const token = core.getInput('token');
-    const issueNumber = core.getInput('issueNumber');
-    const label = core.getInput('label');
+    const token = core.getInput('token', { required: true });
+    const issueNumber = core.getInput('issueNumber', { required: true });
+    const labels = core.getInput('labels', { required: true }).split(';');
     
     const {context, getOctokit} = github;
     const octokit = getOctokit(token);
@@ -13,10 +13,11 @@ async function run() {
     await octokit.issues.addLabels({
       ...context.repo,
       issue_number: issueNumber,
-      labels: [label]
+      labels: labels
     });
   }
   catch (error) {
+    core.error(error);
     core.setFailed(error.message);
   }
 }
