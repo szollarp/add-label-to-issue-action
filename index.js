@@ -1,21 +1,24 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
-const { Octokit } = require("@octokit/rest");
-const { createActionAuth } = require("@octokit/auth-action");
 
 async function run() {
   try {
-    const auth = createActionAuth();
-    const { token } = await auth();
+    const token = core.getInput('token');
+    const issueNumber = core.getInput('issueNumber');
+    const labels = core.getInput('labels');
+    
+    const {context, getOctokit} = github;
+    const octokit = getOctokit(token);
 
-    const appOctokit = new Octokit({
-      auth: token
+    await octokit.issues.addLabels({
+      ...context.repo,
+      issue_number: issueNumber,
+      labels
     });
-
   }
   catch (error) {
     core.setFailed(error.message);
   }
 }
 
-run()
+run();
