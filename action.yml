@@ -1,0 +1,12 @@
+name: 'Add label to gh issue'
+description: 'Add label to gh issue'
+inputs:
+  issue-id:
+    description: 'Id of Issue'
+    required: true
+outputs:
+  time: # id of output
+    description: 'The time we greeted you'
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
